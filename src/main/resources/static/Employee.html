@@ -21,7 +21,7 @@
         <input type="password" name="loginPassword" id="loginPassword" required>
         <label for="loginPassword">Password</label>
       </div>
-      <button class="submit-btn"onClick="login()"><a href="HomePageEmployee.html"> Login </a></button>
+      <button  class="submit-btn" onclick="login()"> Login </button>
 
       <a href="#forgot-pw" class="forgot-pw">𝚂𝚒𝚐𝚗 𝚄𝚙 </a>
     </form>
@@ -30,11 +30,11 @@
         <a href="#" class="close">&times;</a>
         <center><h2>𝚂𝚒𝚐𝚗 𝚄𝚙</h2></center>
         <div class="input-group">
-          <input type="text" name="first Name" id="email"required> 
+          <input type="text" name="first Name" id="fname"required> 
           <label for="text">first Name</label>
           </div>
           <div class="input-group">
-          <input type="text" name="last Name" id="email" required>
+          <input type="text" name="last Name" id="lname" required>
           <label for="text">last Name</label>
           </div>
           <div class="input-group">
@@ -42,10 +42,10 @@
           <label for="text">Email</label>
           </div>
           <div class="input-group">
-          <input type="password" name="Password" id="email" required>
+          <input type="password" name="Password" id="password" required>
           <label for="password">Password</label>
           </div>
-          <button class="submit-btn"><a href="HomePageEmployee.html"> Sign Up </a></button>
+          <button type="submit" class="btn btn-primary" onclick="postApi(this);" dir="rtl" > Sign Up </button>
       </form>
     </div>
   </div>
@@ -58,13 +58,12 @@
         var Username= $("#Username").val();
         console.log(email);
              $.ajax({
-                    url: "/admin/"+Username+"/"+password,
-                    method:'get',
+                    url: "/admin/login/"+Username+"/"+password,
+                    method:'GET',
                     dataType:'json',
                     success:function(data){
                         alert("good");
-                        //window.open("course.html");
-                        window.location.href = "course.html";
+                        window.location.href = 'AddEmployee.html';
                         
                     
                 },error: function(jqXHR,testStatus,errorThrown){
@@ -95,6 +94,45 @@ $(document).ready(function() {
       
     });
 });
+</script>
+<script>
+function postApi(val){
+	var model = {
+	"fname": this.$("#fname").val(),
+	"lname": this.$("#lname").val(),
+	"email" : this.$("#email").val(),
+	"password" : this.$("#password").val()
+	};
+	alert(this.JSON.stringify(model))
+	console.log("post data:"+model);
+	
+		$.ajax(
+		{
+			
+			url : "/admin/addUser",
+			type:"POST",
+			ContentType:"application/json ;charset=UTF-8",
+			
+			crossOrigin:true,
+			dataType:"json",
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+				},
+			data:this.JSON.stringify(model),
+			success:function(data)
+			{
+				console.log("successfuly"+data);
+			},
+			error:function(jqXHR,testStatus,errorThrown)
+			{
+				alert(jqXHR.responseText);
+				alert(errorThrown);
+			}
+		}
+		);
+	}
+
 </script>
  <style>
      * {

@@ -24,28 +24,29 @@ public class adminControl {
 	@Autowired
 	private userService uDao;
 	
+	@GetMapping(value="/admin/login/{email}/{password}")
+	public user login(@PathVariable String  email , @PathVariable String  password)
+	{
+		return uDao.login(email, password);
+		
+	}
 	@PostMapping(value= "/admin/addUser")
 		public user  addUser(@RequestBody user usr)
 		{
 			user n = new  user();
 			System.out.println(usr);
-		//	n.setEmail(usr.getEmail());
+			n.setEmail(usr.getEmail());
 			n.setId(usr.getId());
 			n.setFname(usr.getFname());
 			n.setLname(usr.getLname());
 			n.setPhone(usr.getPhone());
 			n.setAge(usr.getAge());
-			n.setMarried(usr.isMarried());
-			n.setHow_Many_Children_Dose_He_Have(usr.getHow_Many_Children_Dose_He_Have());
-			n.setNumber_Of_Hours(usr.getNumber_Of_Hours());
-			n.setOne_Hour(usr.getOne_Hour());
-			n.setSalary(usr.getSalary());
-			n.setDay(usr.getDay());
-			n.setMonth(usr.getMonth());
-			n.setNumber_Of_Day(usr.getNumber_Of_Day());
-			
-			
-		//	n.setPassword(usr.getPassword());
+			n.setPassword(usr.getPassword());
+			n.setGross_salary(usr.getGross_salary());
+			n.setIncome_Tax(usr.getIncome_Tax());
+			n.setProfessional_Tax(usr.getProfessional_Tax());
+			n.setProvident_Fund(usr.getProvident_Fund());
+
 			uDao.saveUser(n);
 			
 			 HttpHeaders httpHeaders = new HttpHeaders();
@@ -70,8 +71,20 @@ public class adminControl {
 		public void removeById(@RequestParam(name="id") int id)
 		{
 			uDao.removeEmp(id);
+			
+		}
+		@PostMapping(value="admin/addUser", consumes ="application/json",produces ="application/json")
+		public user addUsers(@RequestBody user u) {
+			System.out.println(u);
+			return uDao.addUser(u);
 		}
 
+		@GetMapping("/admin/salary")
+		public double salary(user u)
+		{
+			return uDao.NetSalary(u);
+		}
+		
 	
 		
 	}

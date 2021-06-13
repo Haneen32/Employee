@@ -21,6 +21,11 @@ public class userService {
 		return repos.save(usr);
 	}
 	
+	public user login(String  email ,String password)
+	{
+		return repos.login(email, password);
+	}
+	
 	 public Collection<user> getAllUser(){
 		return repos.findAll(); 
 	 }
@@ -40,5 +45,13 @@ public class userService {
 	public user saveUser(user u) {
 		 return repos.save(u);
 	}
+	public double NetSalary(user u) {
+	    double pf=u.getProvident_Fund()*(u.getGross_salary()/100);
+        double it=u. getIncome_Tax()*(u.getGross_salary()/100);
+        double pt=u.getProfessional_Tax()*(u.getGross_salary()/100);
+        double Net_Salary=u.getGross_salary()-it-pt-pf;
+	    return Net_Salary;
+
+}
 	 
 	}

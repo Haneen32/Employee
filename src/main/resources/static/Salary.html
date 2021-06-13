@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="windows-1256">
+<title>The Salary Of Employee</title>
+</head>
+<Style>
+body{
+    background: url('https://media.istockphoto.com/photos/white-studio-background-picture-id1040250650?k=6&m=1040250650&s=612x612&w=0&h=Ve0znmMwCbVyo66uIfeSrSYRuHau85oBiVIv1OplATs=') ;
+    background-size: cover;
+    font-family: sans-serif;
+}
+.submit{
+  display: block;
+  margin-right: auto;
+  border: none;
+  outline: none;
+  background-color: #4F8FFF;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  color:white;
+}
+
+</Style>
+<body>
+<button class="submit"  onclick="NetSalary">The Salary Of This Employee Is...</button>
+ <div class="input-group">
+        <input type="Salary" name="TheSalary" id="TheSalary" required>
+        <label for="TheSalary">The Salary</label>
+      </div>
+<script type="text/javascript">
+	
+	$(document).ready(function(){
+	$.ajax(
+			{
+				type:"GET",
+				url : "/admin/salary",
+				
+				ContentType:"application/json ;charset=UTF-8",
+				
+				crossOrigin:true,
+				dataType:"json",
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+					},
+				success(data)
+				{
+					console.log(data);
+				}
+					)});
+</script>
+</body>
+</html>
